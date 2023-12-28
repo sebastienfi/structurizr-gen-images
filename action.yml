@@ -32,19 +32,9 @@ runs:
 
     - name: Generate Diagram Images
       run: |
-        echo "Listing /usr/local/"
-        ls -lha /usr/local/
-        echo "Listing /usr/local/src/"
-        ls -lha /usr/local/src/
-        echo "Listing /usr/local/bin/"
-        ls -lha /usr/local/bin/
         echo "Actual folder is"
         echo $PWD
-        echo "Listing actual older"
-        ls -lha .
-        echo "Listing /home/runner/work/"
-        ls -lha /home/runner/work/
-        ./structurizr.sh export -workspace ${{ inputs.workspace-path }} -format plantuml -output ${{ inputs.output-path }}
+        /usr/local/structurizr-cli/structurizr.sh export -workspace ${{ inputs.workspace-path }} -format plantuml -output ${{ inputs.output-path }}
         cd ${{ inputs.output-path }}
         echo 'Generating PNGs...'
         plantuml -tpng *.puml
