@@ -1,5 +1,8 @@
 name: 'Generate Structurizr Diagrams Images from DSL'
 description: 'Automatically generates and updates Structurizr diagrams images on pull requests that modifies DSL.'
+branding:
+  icon: 'activity'
+  color: 'white'
 inputs:
   # You can define inputs that users of your action can specify
   # For example, the path to workspace.dsl if it varies
