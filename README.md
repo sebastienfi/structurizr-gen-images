@@ -35,7 +35,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - uses: sebastienfi/structurizr-gen-images@v1
-            with:
+          with:
             workspace-path: 'docs/workspace.dsl' # This setting will have the action generate images from this DSL. Set the location of your DSL.
 ```
 
