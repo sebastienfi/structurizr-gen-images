@@ -33,6 +33,7 @@ concurrency:
 jobs:
     update-diagrams:
         runs-on: ubuntu-latest
+        container: ghcr.io/sebastienfi/structurizr-cli-with-bonus:latest
         steps:
         - uses: sebastienfi/structurizr-gen-images@v1
           with:
