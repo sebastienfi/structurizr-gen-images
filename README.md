@@ -1,4 +1,4 @@
-# Generate Structurizr Diagrams Action
+# Generate Structurizr Diagrams Images from DSL Action
 
 ## Introduction
 
