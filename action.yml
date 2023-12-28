@@ -32,7 +32,7 @@ runs:
 
     - name: Generate Diagram Images
       run: |
-        find / -name "structurizr.sh"
+        sudo find / -name "structurizr.sh"
         /usr/local/structurizr-cli/structurizr.sh export -workspace ${{ inputs.workspace-path }} -format plantuml -output ${{ inputs.output-path }}
         cd ${{ inputs.output-path }}
         echo 'Generating PNGs...'
