@@ -36,7 +36,9 @@ jobs:
         steps:
         - uses: sebastienfi/structurizr-gen-images@v1
           with:
+            repo-token: ${{ secrets.GITHUB_TOKEN }} # This token will be used by the action to perform git pull, git push, pr read, pr comment, pr comment edit, pr comment reaction.
             workspace-path: 'docs/workspace.dsl' # This setting will have the action generate images from this DSL. Set the location of your DSL.
+            output-path: 'docs/diagrams/' # The output folder for generated images.
 ```
 
 3. Commit the workflow to `main` and create a PR which include a change in your DSL file.

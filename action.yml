@@ -4,18 +4,25 @@ branding:
   icon: 'activity'
   color: 'white'
 inputs:
-  # You can define inputs that users of your action can specify
-  # For example, the path to workspace.dsl if it varies
+  repo-token:
+    description: 'GITHUB_TOKEN from secrets'
+    required: true
   workspace-path:
-    description: 'Path to the workspace.dsl file'
+    description: 'Path to the DSL file'
     required: true
     default: 'docs/workspace.dsl'
+  output-path:
+    description: 'Path to the generated images'
+    required: true
+    default: 'docs/diagrams'
 
 runs:
   using: 'composite'
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+      env:
+        GITHUB_TOKEN: ${{ inputs.repo-token }}
       with:
         ref: ${{ github.event.pull_request.head.sha }}
 
@@ -25,9 +32,8 @@ runs:
 
     - name: Generate Diagram Images
       run: |
-        output_dir="docs/diagrams" # Default output directory
-        /usr/local/structurizr-cli/structurizr.sh export -workspace ${{ inputs.workspace-path }} -format plantuml -output $output_dir
-        cd $output_dir 
+        /usr/local/structurizr-cli/structurizr.sh export -workspace ${{ inputs.workspace-path }} -format plantuml -output ${{ inputs.output-path }}
+        cd ${{ inputs.output-path }}
         echo 'Generating PNGs...'
         plantuml -tpng *.puml
       shell: bash
@@ -44,9 +50,9 @@ runs:
 
     - name: Commit and Push Diagrams
       if: env.CHANGES_EXIST == 'true'
+      env:
+        GITHUB_TOKEN: ${{ inputs.repo-token }}
       run: |
-        git commit -m "chores(C4 diagrams): Update Structurizr diagrams for views"
+        git commit -m "chores(C4 diagrams): Update Structurizr diagrams"
         git push origin HEAD:${GITHUB_HEAD_REF}
       shell: bash
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
