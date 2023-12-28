@@ -25,6 +25,7 @@ on:
     pull_request:
         paths:
         - 'docs/workspace.dsl' # This setting will have the action trigger only if certain file changes. Set the location of your DSL.
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
