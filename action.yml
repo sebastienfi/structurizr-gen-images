@@ -34,7 +34,7 @@ runs:
       run: |
         ls /usr
         ls /usr/local
-        ls /usr/local/structurizr-cli
+        find /usr/local -type f
         ls /home
         ls /home/runner
         ls /home/runner/work
