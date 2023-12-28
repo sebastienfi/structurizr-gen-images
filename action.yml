@@ -1,0 +1,49 @@
+name: 'Generate Structurizr Diagrams'
+description: 'Automatically generates and updates Structurizr diagrams on pull requests.'
+inputs:
+  # You can define inputs that users of your action can specify
+  # For example, the path to workspace.dsl if it varies
+  workspace-path:
+    description: 'Path to the workspace.dsl file'
+    required: true
+    default: 'docs/workspace.dsl'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Setup Git
+      run: git config --global --add safe.directory $PWD
+      shell: bash
+
+    - name: Generate Diagram Images
+      run: |
+        output_dir="docs/diagrams" # Default output directory
+        /usr/local/structurizr-cli/structurizr.sh export -workspace ${{ inputs.workspace-path }} -format plantuml -output $output_dir
+        cd $output_dir 
+        echo 'Generating PNGs...'
+        plantuml -tpng *.puml
+      shell: bash
+
+    - name: Check for Changes
+      id: check_changes
+      run: |
+        git add *.png
+        if git diff --staged --quiet; then
+          echo "CHANGES_EXIST=false" >> $GITHUB_ENV
+        else
+          echo "CHANGES_EXIST=true" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Commit and Push Diagrams
+      if: env.CHANGES_EXIST == 'true'
+      run: |
+        git commit -m "chores(C4 diagrams): Update Structurizr diagrams for views"
+        git push origin HEAD:${GITHUB_HEAD_REF}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
