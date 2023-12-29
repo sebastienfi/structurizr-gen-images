@@ -1,0 +1,60 @@
+name: Feature Request
+description: Suggest an idea for this project
+title: "[FEATURE REQUEST] "
+labels: ["enhancement"]
+assignees:
+  - sebastienfi
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a feature! Please fill out the details below to help us understand your proposal.
+
+  - type: input
+    id: feature-summary
+    attributes:
+      label: Feature Summary
+      description: A brief summary of the feature.
+      placeholder: A concise summary of what you're proposing...
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Detailed Description
+      description: Describe the feature in detail. Include any specific requirements or functionality.
+      placeholder: |
+        Describe your feature in detail here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation-benefits
+    attributes:
+      label: Motivation and Benefits
+      description: Explain why this feature is valuable to the project and its users.
+      placeholder: |
+        Why is this feature important? Who will benefit from it?
+    validations:
+      required: true
+
+  - type: textarea
+    id: possible-implementation
+    attributes:
+      label: Possible Implementation
+      description: Suggestions for how this feature might be implemented, if you have ideas.
+      placeholder: |
+        If you have ideas about how the feature could be implemented, share them here...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this feature request, I confirm I've read and acknowledge the [Code of Conduct](../CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
