@@ -48,6 +48,7 @@ runs:
           echo "CHANGES_EXIST=false" >> $GITHUB_ENV
         else
           echo "CHANGES_EXIST=true" >> $GITHUB_ENV
+        fi
       shell: bash
 
     - name: Commit and Push Diagrams
