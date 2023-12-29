@@ -4,6 +4,8 @@
 
 This GitHub Action automatically generates and updates Structurizr diagrams on pull requests. It's designed to simplify the process of keeping architecture diagrams up-to-date with the latest changes in your codebase.
 
+-> [See this PR for a demo](https://github.com/sebastienfi/structurizr-github-actions-demo/pull/2).
+
 ## Prerequisites
 
 Before you use this action, make sure you have:
@@ -34,6 +36,8 @@ jobs:
     update-diagrams:
         runs-on: ubuntu-latest
         container: ghcr.io/sebastienfi/structurizr-cli-with-bonus:latest
+        permissions: 
+          contents: write # Allow to work with the contents of the repository, including git push.
         steps:
         - uses: sebastienfi/structurizr-gen-images@v1
           with:
